@@ -249,7 +249,8 @@ class GamestatsDatabase(object):
         with closing(self.conn.cursor()) as cursor:
             cursor.execute(
                 "SELECT * FROM storage"
-                " WHERE gamename = ? AND pid = ? AND region = ?",
+                " WHERE gamename = ? AND pid != ? AND region = ?"
+                " ORDER BY RANDOM() LIMIT 1",
                 (gamename, pid, region)
             )
             return cursor.fetchone()
